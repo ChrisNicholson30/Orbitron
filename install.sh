@@ -55,6 +55,7 @@ CLAUDE_JSON="$HOME/.claude.json"
 DRYFLAG=""
 W=""
 [ "$DRY" = 1 ] && { DRYFLAG="--dry-run"; W="(dry run) "; }
+ICONS_CHANGED=0
 INSTALLED=()   # files we put on disk (recorded for uninstall)
 
 py() { python3 -I "$TOOL" "$@"; }
@@ -212,6 +213,7 @@ if [ "$DO_ZED" = 1 ]; then
   else skip "Zed theme selection" "left as-is"; fi
   if [ "$DO_ICONS" = 1 ]; then
     task "Install icon extension" step_zed_icons_files
+    [ "$TASK_RC" = 0 ] && [ "$DRY" != 1 ] && ICONS_CHANGED=1
     if { [ "$TASK_RC" = 0 ] || [ "$TASK_RC" = 2 ]; } && ask "Use Orbitron icons in Zed's project panel?" y; then
       task "Select Orbitron icons in settings.json" step_zed_icon_settings
     else skip "Zed icon theme" "left as-is"; fi
@@ -235,6 +237,10 @@ fi
 if [ "$DO_CLAUDE" = 1 ]; then
   section "Claude Code"
   task "Use ANSI theme (inherits the terminal palette)" step_claude; tick "Claude Code"
+fi
+# Zed caches icon SVGs for the life of the process and never re-reads a changed extension folder.
+if [ "$ICONS_CHANGED" = 1 ] && pgrep -f 'Zed.app/Contents/MacOS/zed' >/dev/null 2>&1; then
+  warn "Zed is running — quit it with ⌘Q and reopen to load the new icons" "closing the window is not enough"
 fi
 section "Finish"
 task "Record install state" step_state; tick "Done"
