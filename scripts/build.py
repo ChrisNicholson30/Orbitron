@@ -6,7 +6,7 @@
 
 Standard library only.
 """
-import colorsys
+import importlib.util
 import json
 import math
 import plistlib
@@ -383,8 +383,18 @@ def terminal_profile(v):
 # ───────────────────────────── render / check ─────────────────────────────
 
 
+def _icons():
+    # python -I does not put scripts/ on sys.path, so load the sibling module by path
+    spec = importlib.util.spec_from_file_location("orbitron_icons", ROOT / "scripts" / "icons.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
 def render(pal):
     out = {"zed/themes/orbitron.json": render_zed(pal)}
+    out.update(_icons().render(pal))
+    out["zed/extension/LICENSE"] = (ROOT / "LICENSE").read_bytes()
     for v in pal["variants"]:
         n = v["name"]
         out["xcode/%s.xccolortheme" % n] = plistlib.dumps(xcode_theme(v), fmt=plistlib.FMT_XML)
@@ -439,6 +449,12 @@ def check(pal, out):
         if not p.exists() or p.read_bytes() != data:
             problems.append("stale or missing output: " + rel + "  (run scripts/build.py)")
 
+    ext = ROOT / "zed" / "extension" / "icons"
+    if ext.exists():
+        for f in ext.rglob("*"):
+            if f.is_file() and str(f.relative_to(ROOT)) not in out:
+                problems.append("stale icon file: " + str(f.relative_to(ROOT)))
+
     print("%-20s %8s %8s %10s" % ("variant", "text", "lead", "keyword"))
     for r in rows:
         print("%-20s %7.1f: %7.1f: %9.1f:" % r)
@@ -458,11 +474,17 @@ def main():
     out = render(pal)
     if "--check" in sys.argv:
         sys.exit(check(pal, out))
+    ext = ROOT / "zed" / "extension" / "icons"
+    if ext.exists():
+        for f in ext.rglob("*"):
+            if f.is_file() and str(f.relative_to(ROOT)) not in out:
+                f.unlink()
     for rel, data in out.items():
         p = ROOT / rel
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_bytes(data)
-        print("wrote", rel)
+        if not p.exists() or p.read_bytes() != data:
+            p.write_bytes(data)
+    print("wrote %d files (%d icons)" % (len(out), sum(1 for k in out if k.endswith(".svg"))))
     # Zed key list is derived from the generated theme the first time, then maintained by hand
     if not ZED_KEYS.exists():
         keys = sorted(json.loads(out["zed/themes/orbitron.json"])["themes"][0]["style"])

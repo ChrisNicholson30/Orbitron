@@ -28,6 +28,7 @@ ui_init
 ORB_HOME="${ORBITRON_HOME:-$HOME/.orbitron}"
 STATE="$ORB_HOME/state.json"
 ZED_DIR="$HOME/.config/zed"
+ZED_SUPPORT="$HOME/Library/Application Support/Zed"
 XCODE_DIR="$HOME/Library/Developer/Xcode/UserData/FontAndColorThemes"
 DRYFLAG=""; W=""
 [ "$DRY" = 1 ] && { DRYFLAG="--dry-run"; W="(dry run) "; }
@@ -60,7 +61,7 @@ safe_remove() {
 }
 
 box_top "This will"
-box_row "  ${G_ARROW}  remove ${#FILES[@]} Orbitron theme file(s) (Zed, Xcode)" "$WHITE"
+box_row "  ${G_ARROW}  remove ${#FILES[@]} Orbitron theme file(s) + the Zed icon extension" "$WHITE"
 box_row "  ${G_ARROW}  restore your previous Zed theme, Terminal default, Claude theme" "$WHITE"
 box_row "  ${G_ARROW}  remove Orbitron profiles from Terminal.app (if it is closed)" "$WHITE"
 [ "$PURGE" = 1 ] && box_row "  ${G_WARN}  delete ~/.orbitron including backups (--purge)" "$AMBER"
@@ -71,12 +72,30 @@ ask "Uninstall Orbitron?" n || { printf '\n  %sNo changes made.%s\n\n' "$DIM" "$
 
 section "Restore settings"
 task "Zed theme" py zed-restore --state "$STATE" $DRYFLAG
+task "Zed icon theme" py zed-restore --key icon_theme --state "$STATE" $DRYFLAG
 task "Claude Code theme" py claude-restore --state "$STATE" $DRYFLAG
 if [ "${ORBITRON_SKIP_OPEN:-0}" != 1 ]; then
   task "Terminal.app default profile" py terminal-restore --state "$STATE" $DRYFLAG
 fi
 
+# Zed icon extension: only remove the symlink if it points at OUR copy, and only delete our copy.
+remove_icon_extension() {
+  local link dir
+  link="$(py state-get --state "$STATE" --key zed_ext.link 2>/dev/null || echo "$ZED_SUPPORT/extensions/installed/orbitron-icons")"
+  dir="$ORB_HOME/zed-icons"
+  if [ -L "$link" ] && [ "$(readlink "$link")" = "$dir" ]; then
+    [ "$DRY" = 1 ] || rm -f "$link"
+  elif [ -e "$link" ] || [ -L "$link" ]; then
+    echo "extension link isn't ours; left alone"; return 2
+  elif [ ! -d "$dir" ]; then
+    return 2
+  fi
+  [ "$DRY" = 1 ] || rm -rf "$dir"
+  echo "${W}removed orbitron-icons extension"
+}
+
 section "Remove files"
+task "Zed icon extension" remove_icon_extension
 for f in ${FILES[@]+"${FILES[@]}"}; do
   task "$(basename "$f")" safe_remove "$f"
 done
@@ -90,7 +109,7 @@ fi
 
 section "Clean up"
 if [ "$DRY" != 1 ]; then
-  rm -f "$ORB_HOME/terminal.sha"
+  rm -f "$ORB_HOME/terminal.sha" "$ORB_HOME/icons.sha"
   py state-clear --state "$STATE" >/dev/null 2>&1 || true
 fi
 if [ "$PURGE" = 1 ]; then

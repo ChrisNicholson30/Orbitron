@@ -9,7 +9,7 @@
  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
 ```
 
-**Space gray. Hot pink.** One palette for Zed, Xcode, Terminal.app and Claude Code.
+**Space gray. Hot pink.** One palette for Zed (themes and icons), Xcode, Terminal.app and Claude Code.
 
 </div>
 
@@ -38,11 +38,12 @@ git clone <this repo> Orbitron && cd Orbitron
 | Target | What happens |
 |---|---|
 | **Zed** | Copies `orbitron.json` (5 themes, all 190 theme keys) to `~/.config/zed/themes` and sets `theme` to follow the system: `Orbitron Daylight` in light mode, `Orbitron` in dark. Only the `theme` value in `settings.json` is edited; comments and other settings are left alone. |
+| **Zed icons** | Installs 5 icon themes (560 original 16px SVGs: language monograms, pictograms, badge folders) as the `orbitron-icons` extension and sets `icon_theme` to follow the system: `Orbitron Daylight Icons` / `Orbitron Icons`. Zed only loads icon themes from extensions, so the installer copies the extension to `~/.orbitron/zed-icons` and symlinks it into Zed's `extensions/installed` folder, the same way a dev extension is installed. **Restart Zed** if the icons don't appear straight away. |
 | **Xcode** | Installs 5 `.xccolortheme` and 5 `.xcworkspacecolortheme` files. Restart Xcode, then choose one in Settings ➜ Themes. |
 | **Terminal.app** | Imports 5 profiles and can make `Orbitron` the default. Terminal opens one window per imported profile, so close them afterwards. |
 | **Claude Code** | Sets the theme to `dark-ansi` (if it isn't already). See below. |
 
-Options: `--yes`, `--dry-run`, `--no-zed`, `--no-xcode`, `--no-terminal`, `--no-claude`, `--dark "Orbitron Nebula"`, `--light "Orbitron Lunar"`, `--plain`.
+Options: `--yes`, `--dry-run`, `--no-zed`, `--no-icons`, `--no-xcode`, `--no-terminal`, `--no-claude`, `--dark "Orbitron Nebula"`, `--light "Orbitron Lunar"`, `--plain`.
 
 Everything the installer changes is backed up to `~/.orbitron/backups/` (owner-only permissions), and what it changed is recorded in `~/.orbitron/state.json` so that `uninstall.sh` can put it back.
 
@@ -74,8 +75,12 @@ python3 -I scripts/build.py --check  # contrast + Zed key coverage + outputs up 
 palettes/orbitron.json   single source of truth (every colour, every variant)
 scripts/build.py         generator + validator (Python standard library only)
 scripts/zed_keys.txt     the Zed theme keys every variant must define
+scripts/icons.py         icon generator: stroke-font monograms, pictograms, folders
 zed/  xcode/  terminal/  generated themes (committed, so installing needs no build)
+zed/extension/           the Zed icon-theme extension (extension.toml, icon_themes/, 5 × 112 SVGs)
 lib/ui.sh, lib/tool.py   installer UI and the safe JSONC / defaults helpers
 ```
+
+The icon themes use the same palette as the colour themes, so editing a colour in `palettes/orbitron.json` recolours the icons too.
 
 Requires macOS and `python3` 3.8+. `install.sh` works with the stock macOS bash 3.2.

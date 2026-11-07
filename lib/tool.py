@@ -199,16 +199,23 @@ def new_theme_value(indent, light, dark):
         i2, i2, json.dumps(light), i2, json.dumps(dark), indent)
 
 
-def zed_set_theme(text, value_builder):
-    """Return new text with top-level "theme" replaced (or inserted)."""
+def zed_set_key(text, key, value_builder):
+    """Return new text with top-level `key` replaced (or inserted)."""
     root, members = root_members(text)
-    if "theme" in members:
-        ks, vs, ve = members["theme"]
+    if key in members:
+        ks, vs, ve = members[key]
         old_raw = text[vs:ve]
         return text[:vs] + value_builder(line_indent(text, ks)) + text[ve:], old_raw
     indent = "  "
-    ins = '\n%s"theme": %s%s' % (indent, value_builder(indent), "," if members else "\n")
+    ins = '\n%s%s: %s%s' % (indent, json.dumps(key), value_builder(indent), "," if members else "\n")
     return text[:root + 1] + ins + text[root + 1:], None
+
+
+def _zed_key(a):
+    """-> (settings key, state key, human label) for --key theme|icon_theme."""
+    if a.key == "icon_theme":
+        return "icon_theme", "zed_icons", "Zed icon theme"
+    return "theme", "zed", "Zed theme"
 
 
 def cmd_zed_apply(a):
@@ -216,45 +223,49 @@ def cmd_zed_apply(a):
     if not p.exists():
         say("no Zed settings.json yet (Zed will use the theme once selected)", 2)
     text = p.read_text()
-    new, old_raw = zed_set_theme(text, lambda ind: new_theme_value(ind, a.light, a.dark))
+    key, sk, label = _zed_key(a)
+    new, old_raw = zed_set_key(text, key, lambda ind: new_theme_value(ind, a.light, a.dark))
     parsed = json.loads(strip_jsonc(new))
-    if parsed.get("theme") != {"mode": "system", "light": a.light, "dark": a.dark}:
+    if parsed.get(key) != {"mode": "system", "light": a.light, "dark": a.dark}:
         say("validation failed; settings left untouched", 1)
     st = load_state(a.state)
     already = old_raw is not None and "Orbitron" in old_raw
     if not already:  # never overwrite the saved original with our own value
-        st["zed"] = {"settings": str(p), "previous_theme_raw": old_raw}
-    st.setdefault("zed", {"settings": str(p), "previous_theme_raw": None})
+        st[sk] = {"settings": str(p), "previous_raw": old_raw}
+    st.setdefault(sk, {"settings": str(p), "previous_raw": None})
     if new == text:
-        say("Zed theme already set (%s / %s)" % (a.light, a.dark), 2)
+        say("%s already set (%s / %s)" % (label, a.light, a.dark), 2)
     if a.dry_run:
-        say("would set Zed theme: light=%s dark=%s" % (a.light, a.dark))
+        say("would set %s: light=%s dark=%s" % (label, a.light, a.dark))
     atomic_write(p, new)
     save_state(a.state, st)
-    say("Zed theme set: light=%s dark=%s" % (a.light, a.dark))
+    say("%s set: light=%s dark=%s" % (label, a.light, a.dark))
 
 
 def cmd_zed_restore(a):
+    key, sk, label = _zed_key(a)
     st = load_state(a.state)
-    z = st.get("zed")
+    z = st.get(sk)
     p = Path(a.settings or (z or {}).get("settings", ""))
     if not z or not p.exists():
-        say("no Zed theme change recorded", 2)
+        say("no %s change recorded" % label, 2)
     text = p.read_text()
     root, members = root_members(text)
-    if "theme" not in members or "Orbitron" not in text[members["theme"][1]:members["theme"][2]]:
-        say("Zed theme was changed since install; leaving it alone", 2)
-    prev = z.get("previous_theme_raw")
+    if key not in members or "Orbitron" not in text[members[key][1]:members[key][2]]:
+        say("%s was changed since install; leaving it alone" % label, 2)
+    prev = z.get("previous_raw")
     if prev is None:
-        prev = '{"mode": "system", "light": "One Light", "dark": "One Dark"}'
-    new, _ = zed_set_theme(text, lambda ind: prev)
+        d = "One" if key == "theme" else "Zed (Default)"
+        light, dark = ("One Light", "One Dark") if key == "theme" else (d, d)
+        prev = json.dumps({"mode": "system", "light": light, "dark": dark})
+    new, _ = zed_set_key(text, key, lambda ind: prev)
     json.loads(strip_jsonc(new))
     if a.dry_run:
-        say("would restore previous Zed theme")
+        say("would restore previous %s" % label)
     atomic_write(p, new)
-    st.pop("zed", None)
+    st.pop(sk, None)
     save_state(a.state, st)
-    say("Zed theme restored")
+    say("%s restored" % label)
 
 
 # ───────────────────────────── Claude Code ─────────────────────────────
@@ -406,6 +417,13 @@ def cmd_state_get(a):
     sys.exit(0 if cur is not None else 2)
 
 
+def cmd_state_set(a):
+    st = load_state(a.state)
+    st[a.key] = json.loads(a.value)
+    save_state(a.state, st)
+    say("state saved")
+
+
 def cmd_state_clear(a):
     try:
         os.remove(a.state)
@@ -435,8 +453,10 @@ def main():
         return sp
 
     s = add("zed-apply", cmd_zed_apply, "--settings", "--light", "--dark", "--state")
+    s.add_argument("--key", default="theme", choices=["theme", "icon_theme"])
     s = add("zed-restore", cmd_zed_restore, "--state")
     s.add_argument("--settings")
+    s.add_argument("--key", default="theme", choices=["theme", "icon_theme"])
     add("claude-apply", cmd_claude_apply, "--settings", "--claude-json", "--state")
     add("claude-restore", cmd_claude_restore, "--state")
     add("terminal-apply", cmd_terminal_apply, "--profile", "--state")
@@ -445,6 +465,7 @@ def main():
     s = add("state-files", cmd_state_files, "--state", "--version")
     s.add_argument("paths", nargs="*")
     s = add("state-get", cmd_state_get, "--state", "--key")
+    s = add("state-set", cmd_state_set, "--state", "--key", "--value")
     add("state-clear", cmd_state_clear, "--state")
     add("swatches", cmd_swatches, "--palette")
     a = ap.parse_args()
