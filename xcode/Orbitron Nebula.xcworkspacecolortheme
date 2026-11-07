@@ -1,0 +1,625 @@
+{
+  "fileVersion": 1,
+  "recipe": {
+    "background": {
+      "customColor": {
+        "chroma": {
+          "exact": 0.022392460391861223
+        },
+        "gamut": "sRGB",
+        "hue": {
+          "radians": 4.904699998782129
+        },
+        "lightness": {
+          "exact": 0.26468802051810714
+        },
+        "opacity": 1
+      }
+    },
+    "colorScheme": "dark",
+    "palette": {
+      "colorOverrides": {
+        "comment": {
+          "color": {
+            "chroma": {
+              "exact": 0.05595493911836496
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.883644599369401
+            },
+            "lightness": {
+              "exact": 0.6202430636592733
+            },
+            "opacity": 1
+          }
+        },
+        "commentEmphasized": {
+          "color": {
+            "chroma": {
+              "exact": 0.049712371452670746
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.882961070478733
+            },
+            "lightness": {
+              "exact": 0.7077067683263424
+            },
+            "opacity": 1
+          }
+        },
+        "keyword": {
+          "color": {
+            "chroma": {
+              "exact": 0.13218749085861722
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 5.1390605579301285
+            },
+            "lightness": {
+              "exact": 0.7678715536642019
+            },
+            "opacity": 1
+          }
+        },
+        "keyword.attribute": {
+          "color": {
+            "chroma": {
+              "exact": 0.12539017769335853
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 1.2867182533586166
+            },
+            "lightness": {
+              "exact": 0.8504453117700249
+            },
+            "opacity": 1
+          }
+        },
+        "link": {
+          "color": {
+            "chroma": {
+              "exact": 0.1135141656633295
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 3.658028109553702
+            },
+            "lightness": {
+              "exact": 0.8195609742954184
+            },
+            "opacity": 1
+          }
+        },
+        "markdown": {
+          "color": {
+            "chroma": {
+              "exact": 0.014805282060115131
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.9209092755331145
+            },
+            "lightness": {
+              "exact": 0.9394811365579135
+            },
+            "opacity": 1
+          }
+        },
+        "markdownEmphasized": {
+          "color": {
+            "chroma": {
+              "exact": 0.014805282060115131
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.9209092755331145
+            },
+            "lightness": {
+              "exact": 0.9394811365579135
+            },
+            "opacity": 1
+          }
+        },
+        "memberDeclaration": {
+          "color": {
+            "chroma": {
+              "exact": 0.19242129015433723
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 6.17610897493701
+            },
+            "lightness": {
+              "exact": 0.729345799807727
+            },
+            "opacity": 1
+          }
+        },
+        "number": {
+          "color": {
+            "chroma": {
+              "exact": 0.12539017769335853
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 1.2867182533586166
+            },
+            "lightness": {
+              "exact": 0.8504453117700249
+            },
+            "opacity": 1
+          }
+        },
+        "number.character": {
+          "color": {
+            "chroma": {
+              "exact": 0.12539017769335853
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 1.2867182533586166
+            },
+            "lightness": {
+              "exact": 0.8504453117700249
+            },
+            "opacity": 1
+          }
+        },
+        "otherMember": {
+          "color": {
+            "chroma": {
+              "exact": 0.11974932395349037
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.647895749526558
+            },
+            "lightness": {
+              "exact": 0.7641306779913533
+            },
+            "opacity": 1
+          }
+        },
+        "otherMember.constant": {
+          "color": {
+            "chroma": {
+              "exact": 0.13730193203050126
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 0.8823931360616455
+            },
+            "lightness": {
+              "exact": 0.7869880847171244
+            },
+            "opacity": 1
+          }
+        },
+        "otherMember.function": {
+          "color": {
+            "chroma": {
+              "exact": 0.19242129015433723
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 6.17610897493701
+            },
+            "lightness": {
+              "exact": 0.729345799807727
+            },
+            "opacity": 1
+          }
+        },
+        "otherMember.variable": {
+          "color": {
+            "chroma": {
+              "exact": 0.11974932395349037
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.647895749526558
+            },
+            "lightness": {
+              "exact": 0.7641306779913533
+            },
+            "opacity": 1
+          }
+        },
+        "otherType": {
+          "color": {
+            "chroma": {
+              "exact": 0.1135141656633295
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 3.658028109553702
+            },
+            "lightness": {
+              "exact": 0.8195609742954184
+            },
+            "opacity": 1
+          }
+        },
+        "otherType.class": {
+          "color": {
+            "chroma": {
+              "exact": 0.1135141656633295
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 3.658028109553702
+            },
+            "lightness": {
+              "exact": 0.8195609742954184
+            },
+            "opacity": 1
+          }
+        },
+        "otherType.type": {
+          "color": {
+            "chroma": {
+              "exact": 0.1135141656633295
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 3.658028109553702
+            },
+            "lightness": {
+              "exact": 0.8195609742954184
+            },
+            "opacity": 1
+          }
+        },
+        "plainText": {
+          "color": {
+            "chroma": {
+              "exact": 0.014805282060115131
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.9209092755331145
+            },
+            "lightness": {
+              "exact": 0.9394811365579135
+            },
+            "opacity": 1
+          }
+        },
+        "preprocessor": {
+          "color": {
+            "chroma": {
+              "exact": 0.13730193203050126
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 0.8823931360616455
+            },
+            "lightness": {
+              "exact": 0.7869880847171244
+            },
+            "opacity": 1
+          }
+        },
+        "preprocessor.macro": {
+          "color": {
+            "chroma": {
+              "exact": 0.13730193203050126
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 0.8823931360616455
+            },
+            "lightness": {
+              "exact": 0.7869880847171244
+            },
+            "opacity": 1
+          }
+        },
+        "preprocessor.macroSystem": {
+          "color": {
+            "chroma": {
+              "exact": 0.13730193203050126
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 0.8823931360616455
+            },
+            "lightness": {
+              "exact": 0.7869880847171244
+            },
+            "opacity": 1
+          }
+        },
+        "projectMember": {
+          "color": {
+            "chroma": {
+              "exact": 0.11974932395349037
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.647895749526558
+            },
+            "lightness": {
+              "exact": 0.7641306779913533
+            },
+            "opacity": 1
+          }
+        },
+        "projectMember.constant": {
+          "color": {
+            "chroma": {
+              "exact": 0.13730193203050126
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 0.8823931360616455
+            },
+            "lightness": {
+              "exact": 0.7869880847171244
+            },
+            "opacity": 1
+          }
+        },
+        "projectMember.function": {
+          "color": {
+            "chroma": {
+              "exact": 0.19242129015433723
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 6.17610897493701
+            },
+            "lightness": {
+              "exact": 0.729345799807727
+            },
+            "opacity": 1
+          }
+        },
+        "projectMember.variable": {
+          "color": {
+            "chroma": {
+              "exact": 0.11974932395349037
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.647895749526558
+            },
+            "lightness": {
+              "exact": 0.7641306779913533
+            },
+            "opacity": 1
+          }
+        },
+        "projectType": {
+          "color": {
+            "chroma": {
+              "exact": 0.1135141656633295
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 3.658028109553702
+            },
+            "lightness": {
+              "exact": 0.8195609742954184
+            },
+            "opacity": 1
+          }
+        },
+        "projectType.class": {
+          "color": {
+            "chroma": {
+              "exact": 0.1135141656633295
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 3.658028109553702
+            },
+            "lightness": {
+              "exact": 0.8195609742954184
+            },
+            "opacity": 1
+          }
+        },
+        "projectType.type": {
+          "color": {
+            "chroma": {
+              "exact": 0.1135141656633295
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 3.658028109553702
+            },
+            "lightness": {
+              "exact": 0.8195609742954184
+            },
+            "opacity": 1
+          }
+        },
+        "string": {
+          "color": {
+            "chroma": {
+              "exact": 0.12181150684555557
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 2.6627574222726254
+            },
+            "lightness": {
+              "exact": 0.8530507703095632
+            },
+            "opacity": 1
+          }
+        },
+        "string.regex": {
+          "color": {
+            "chroma": {
+              "exact": 0.13730193203050126
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 0.8823931360616455
+            },
+            "lightness": {
+              "exact": 0.7869880847171244
+            },
+            "opacity": 1
+          }
+        },
+        "typeDeclaration": {
+          "color": {
+            "chroma": {
+              "exact": 0.1135141656633295
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 3.658028109553702
+            },
+            "lightness": {
+              "exact": 0.8195609742954184
+            },
+            "opacity": 1
+          }
+        },
+        "debugger": {
+          "color": {
+            "chroma": {
+              "exact": 0.1116831667571946
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 5.155679097838955
+            },
+            "lightness": {
+              "exact": 0.8027072080400504
+            },
+            "opacity": 1
+          }
+        },
+        "diffAddition": {
+          "color": {
+            "chroma": {
+              "exact": 0.12181150684555557
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 2.6627574222726254
+            },
+            "lightness": {
+              "exact": 0.8530507703095632
+            },
+            "opacity": 1
+          }
+        },
+        "diffDeletion": {
+          "color": {
+            "chroma": {
+              "exact": 0.19784306861652787
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 0.22570740364792266
+            },
+            "lightness": {
+              "exact": 0.6967954814795143
+            },
+            "opacity": 1
+          }
+        },
+        "insertionPointColor": {
+          "color": {
+            "chroma": {
+              "exact": 0.15916821072689796
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 5.1232604168401
+            },
+            "lightness": {
+              "exact": 0.7089689526169372
+            },
+            "opacity": 1
+          }
+        },
+        "invisibles": {
+          "color": {
+            "chroma": {
+              "exact": 0.0629931231289911
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.885437084812422
+            },
+            "lightness": {
+              "exact": 0.5816493181587352
+            },
+            "opacity": 1
+          }
+        },
+        "currentLineHighlight": {
+          "color": {
+            "chroma": {
+              "exact": 0.021439024797766795
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 4.910182414192712
+            },
+            "lightness": {
+              "exact": 0.31322618574094463
+            },
+            "opacity": 1
+          }
+        },
+        "selectedTextBackgroundColor": {
+          "color": {
+            "chroma": {
+              "exact": 0.06666462415414617
+            },
+            "gamut": "sRGB",
+            "hue": {
+              "radians": 5.080796155382125
+            },
+            "lightness": {
+              "exact": 0.4003994722959476
+            },
+            "opacity": 1
+          }
+        }
+      },
+      "primary": {
+        "custom": {
+          "chroma": {
+            "exact": 0.025510740413323917
+          },
+          "gamut": "sRGB",
+          "hue": {
+            "radians": 4.912802905380545
+          },
+          "lightness": {
+            "exact": 0.2901921644145321
+          },
+          "opacity": 1
+        }
+      },
+      "secondary": {
+        "custom": {
+          "chroma": {
+            "exact": 0.020979731386644634
+          },
+          "gamut": "sRGB",
+          "hue": {
+            "radians": 4.8982695422976406
+          },
+          "lightness": {
+            "exact": 0.24330512129316564
+          },
+          "opacity": 1
+        }
+      }
+    }
+  }
+}

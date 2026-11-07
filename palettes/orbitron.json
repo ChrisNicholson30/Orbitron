@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "name": "Orbitron",
+    "version": "1.0.0",
+    "author": "Chris Nicholson",
+    "homepage": "https://github.com/chrisnicholson/Orbitron"
+  },
+  "variants": [
+    {
+      "id": "orbitron",
+      "name": "Orbitron",
+      "mode": "dark",
+      "tagline": "Space gray, hot pink lead",
+      "bg": { "crust": "#16171b", "panel": "#1b1c21", "base": "#1f2025", "surface": "#25262c", "raised": "#2d2e36", "border": "#363841" },
+      "text": { "fg": "#eceef4", "muted": "#a4a8b6", "placeholder": "#707489" },
+      "lead": { "main": "#ff2d95", "hi": "#ff5aa8" },
+      "syn": {
+        "kw": "#ff5aa8", "fn": "#5ad8ec", "ty": "#b99bff", "str": "#8ee6a8", "num": "#ffc16b",
+        "prop": "#8fb0ff", "param": "#ffa98a", "op": "#ff8cc6", "cmt": "#7a7f94", "doc": "#9296aa",
+        "tag": "#ff5aa8", "attr": "#ffc16b", "esc": "#5ad8ec", "rx": "#ff9e64", "link": "#5ad8ec",
+        "punct": "#9a9eb0", "special": "#ff9e64", "label": "#b99bff"
+      },
+      "status": { "error": "#ff5c7a", "warning": "#ffc16b", "success": "#8ee6a8", "info": "#5ad8ec" },
+      "ansi": [
+        "#2d2e36", "#ff5c7a", "#8ee6a8", "#ffc16b", "#7aa2ff", "#c792ff", "#5ad8ec", "#c9ccd8",
+        "#707489", "#ff5aa8", "#a8f0be", "#ffd38f", "#9bb8ff", "#dab6ff", "#8ae6f4", "#f4f5fa"
+      ]
+    },
+    {
+      "id": "eclipse",
+      "name": "Orbitron Eclipse",
+      "mode": "dark",
+      "tagline": "Deep space gray, electric cyan lead",
+      "bg": { "crust": "#0f1013", "panel": "#131418", "base": "#16171b", "surface": "#1c1d22", "raised": "#24252b", "border": "#2e3037" },
+      "text": { "fg": "#e6e8ee", "muted": "#9a9eac", "placeholder": "#6c7082" },
+      "lead": { "main": "#2de2e6", "hi": "#6ff0f3" },
+      "syn": {
+        "kw": "#35e0e8", "fn": "#ff5aa8", "ty": "#b99bff", "str": "#8ee6a8", "num": "#ffc16b",
+        "prop": "#8fb0ff", "param": "#ffa98a", "op": "#7ee9ee", "cmt": "#72778b", "doc": "#8a8fa3",
+        "tag": "#35e0e8", "attr": "#ffc16b", "esc": "#ff5aa8", "rx": "#ff9e64", "link": "#35e0e8",
+        "punct": "#8f93a6", "special": "#ff9e64", "label": "#b99bff"
+      },
+      "status": { "error": "#ff5c7a", "warning": "#ffc16b", "success": "#8ee6a8", "info": "#35e0e8" },
+      "ansi": [
+        "#24252b", "#ff5c7a", "#8ee6a8", "#ffc16b", "#7aa2ff", "#c792ff", "#2de2e6", "#c4c7d3",
+        "#6c7082", "#ff5aa8", "#a8f0be", "#ffd38f", "#9bb8ff", "#dab6ff", "#6ff0f3", "#f2f3f8"
+      ]
+    },
+    {
+      "id": "nebula",
+      "name": "Orbitron Nebula",
+      "mode": "dark",
+      "tagline": "Cool indigo gray, violet lead",
+      "bg": { "crust": "#1a1b25", "panel": "#1e1f2a", "base": "#232430", "surface": "#292a38", "raised": "#323345", "border": "#3d3f54" },
+      "text": { "fg": "#e9eaf5", "muted": "#a6a9c4", "placeholder": "#7377a0" },
+      "lead": { "main": "#a78bfa", "hi": "#c4b0ff" },
+      "syn": {
+        "kw": "#b9a2ff", "fn": "#ff6bb0", "ty": "#5ad8ec", "str": "#8ee6a8", "num": "#ffc16b",
+        "prop": "#8fb0ff", "param": "#ffa98a", "op": "#d1c2ff", "cmt": "#7f83a8", "doc": "#9a9ec0",
+        "tag": "#ff6bb0", "attr": "#ffc16b", "esc": "#5ad8ec", "rx": "#ff9e64", "link": "#5ad8ec",
+        "punct": "#9a9dc0", "special": "#ff9e64", "label": "#5ad8ec"
+      },
+      "status": { "error": "#ff5c7a", "warning": "#ffc16b", "success": "#8ee6a8", "info": "#5ad8ec" },
+      "ansi": [
+        "#323345", "#ff5c7a", "#8ee6a8", "#ffc16b", "#7aa2ff", "#c4b0ff", "#5ad8ec", "#cdd0e6",
+        "#7377a0", "#ff6bb0", "#a8f0be", "#ffd38f", "#9bb8ff", "#d8caff", "#8ae6f4", "#f4f5fc"
+      ]
+    },
+    {
+      "id": "daylight",
+      "name": "Orbitron Daylight",
+      "mode": "light",
+      "tagline": "Silver space gray, crisp pink",
+      "bg": { "crust": "#dcdfe5", "panel": "#e8eaee", "base": "#f3f4f6", "surface": "#eceef2", "raised": "#ffffff", "border": "#c9ccd6" },
+      "text": { "fg": "#23252d", "muted": "#555a6b", "placeholder": "#7b8092" },
+      "lead": { "main": "#d6196f", "hi": "#c8176a" },
+      "syn": {
+        "kw": "#c8176a", "fn": "#0a7387", "ty": "#6a42d6", "str": "#1b7a43", "num": "#a35400",
+        "prop": "#2f56c9", "param": "#b8452a", "op": "#b0155f", "cmt": "#707587", "doc": "#5f6475",
+        "tag": "#c8176a", "attr": "#a35400", "esc": "#0a7387", "rx": "#b54a00", "link": "#0a6f85",
+        "punct": "#5f6475", "special": "#b54a00", "label": "#6a42d6"
+      },
+      "status": { "error": "#c8203f", "warning": "#9a5a00", "success": "#1b7a43", "info": "#0a6f85" },
+      "ansi": [
+        "#23252d", "#c8203f", "#1b7a43", "#8f5500", "#2f56c9", "#6a42d6", "#0a6f85", "#555a6b",
+        "#5f6475", "#d6196f", "#17703a", "#a35400", "#3f66dd", "#7b55e6", "#0a7f95", "#3b3e4a"
+      ]
+    },
+    {
+      "id": "lunar",
+      "name": "Orbitron Lunar",
+      "mode": "light",
+      "tagline": "Warm moon-paper gray, soft rose",
+      "bg": { "crust": "#d9d5cf", "panel": "#e2dfda", "base": "#ece9e4", "surface": "#e6e3de", "raised": "#faf8f5", "border": "#c7c2ba" },
+      "text": { "fg": "#2a2724", "muted": "#5a554e", "placeholder": "#827c74" },
+      "lead": { "main": "#c2447f", "hi": "#b0346f" },
+      "syn": {
+        "kw": "#b0346f", "fn": "#16727f", "ty": "#6b4bc4", "str": "#2a7339", "num": "#8f5000",
+        "prop": "#3b5bb8", "param": "#a8472c", "op": "#9c2a62", "cmt": "#756f66", "doc": "#625c54",
+        "tag": "#b0346f", "attr": "#8f5000", "esc": "#16727f", "rx": "#a8500c", "link": "#16727f",
+        "punct": "#625c54", "special": "#a8500c", "label": "#6b4bc4"
+      },
+      "status": { "error": "#b8283f", "warning": "#8f5500", "success": "#2a7339", "info": "#16727f" },
+      "ansi": [
+        "#2a2724", "#b8283f", "#2a7339", "#855000", "#3b5bb8", "#6b4bc4", "#16727f", "#5a554e",
+        "#625c54", "#c2447f", "#286d37", "#8f5000", "#4a6bcc", "#7d5ed6", "#1f8290", "#3a352f"
+      ]
+    }
+  ]
+}
