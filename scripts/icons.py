@@ -1,8 +1,9 @@
 """Orbitron icon themes for Zed. Imported by build.py; standard library only.
 
-Design: 16px "chips" and folders drawn with a 1.25px rounded stroke and a soft 14% tint.
-Languages get a tiny stroke-font monogram (no <text>, so nothing depends on installed fonts);
-everything else gets a pictogram. Folders carry the same pictograms as badges.
+Design: frameless 16px glyphs drawn with a rounded stroke, no container box.
+Languages are bold stroke-font monograms (no <text>, so nothing depends on installed fonts);
+other file kinds are pictograms scaled to fill the canvas; plain documents are page silhouettes.
+Folders keep their shape and carry the same pictograms as small badges.
 Colours come from each variant's palette, so icons always match the editor theme.
 """
 import json
@@ -25,11 +26,11 @@ _FONT = {
 }
 
 
-def mono(text, w=12.0, x0=2.0, y0=2.0, h=12.0):
-    """Stroke-font monogram centred in the chip box; returns one <path/>."""
+def mono(text, w=14.0, x0=1.0, y0=1.0, h=14.0):
+    """Stroke-font monogram filling the canvas; returns one <path/>."""
     n = len(text)
-    s = 1.55 if n == 1 else 1.12
-    gap = 0 if n == 1 else 1.1
+    s = 2.5 if n == 1 else 2.0
+    gap = 0 if n == 1 else 1.3
     total = n * 3 * s + (n - 1) * gap
     ox = x0 + (w - total) / 2
     oy = y0 + (h - 5 * s) / 2
@@ -45,7 +46,7 @@ def mono(text, w=12.0, x0=2.0, y0=2.0, h=12.0):
                 x, y = (float(v) for v in p.split(","))
                 seg.append("%s%.2f %.2f" % ("M" if j == 0 else "L", lx + x * s, oy + y * s))
             d.append("".join(seg) + ("Z" if closed else ""))
-    return '<path d="%s" stroke-width="1.15"/>' % "".join(d)
+    return '<path d="%s" stroke-width="1.45"/>' % "".join(d)
 
 
 # ───────────────────────────── pictograms (16-unit grid, stroke only) ─────────────────────────────
@@ -93,12 +94,20 @@ GLYPH = {
     "react": '<ellipse cx="8" cy="8" rx="4.6" ry="1.9"/><ellipse cx="8" cy="8" rx="4.6" ry="1.9" transform="rotate(60 8 8)"/><ellipse cx="8" cy="8" rx="4.6" ry="1.9" transform="rotate(120 8 8)"/><circle cx="8" cy="8" r=".7"/>',
     "text": P("M4.5 5h7M8 5v6.5M6.5 11.5h3"),
     "cube3": P("M8 3.5 12 5.8v4.4L8 12.5 4 10.2V5.8Z"),
+    # full-canvas page silhouettes (already drawn at final size, see FULL)
+    "page": P("M3.5 1.75h6l3.25 3.25v9.25h-9.25ZM9.5 1.75V5h3.25"),
+    "pagelines": P("M3.5 1.75h6l3.25 3.25v9.25h-9.25ZM9.5 1.75V5h3.25M5.75 8.25h4.5M5.75 10.5h4.5M5.75 12.5h2.5"),
+    "pagetext": P("M3.5 1.75h6l3.25 3.25v9.25h-9.25ZM9.5 1.75V5h3.25M5.75 9h4.5M5.75 11.5h3"),
 }
+FULL = {"page", "pagelines", "pagetext"}
+FIT = {"lock": 1.6, "brackets": 1.55, "shell": 1.45, "lines": 1.5, "list": 1.35, "gear": 1.4, "star": 1.4,
+       "link": 1.35, "sliders": 1.4, "braces": 1.45, "code": 1.4, "html": 1.4, "markdown": 1.4, "license": 1.4,
+       "test": 1.35, "bolt": 1.45, "cloud": 1.4, "audio": 1.4, "video": 1.4, "shield": 1.4}
 
 # ───────────────────────────── file icon table ─────────────────────────────
 # id: (role, kind, payload)   kind "m" = monogram text, "g" = pictogram name
 FILES = {
-    "default": ("muted", "g", "doc"), "document": ("muted", "g", "lines"), "text": ("muted", "g", "text"),
+    "default": ("muted", "g", "page"), "document": ("muted", "g", "pagelines"), "text": ("muted", "g", "pagetext"),
     "typescript": ("fn", "m", "TS"), "javascript": ("num", "m", "JS"), "react": ("fn", "g", "react"),
     "rust": ("rx", "m", "RS"), "swift": ("param", "m", "SW"), "python": ("prop", "m", "PY"),
     "go": ("fn", "m", "GO"), "ruby": ("err", "m", "RB"), "java": ("rx", "m", "J"), "kotlin": ("ty", "m", "KT"),
@@ -202,12 +211,15 @@ def roles(v):
 
 
 def file_icon(color, kind, payload):
-    body = mono(payload) if kind == "m" else GLYPH[payload]
-    chip = '<rect x="2" y="2" width="12" height="12" rx="3.5" fill="%s" fill-opacity="0.14"/>' % color
-    if kind == "g":
-        # pictograms are drawn on the 16 grid: shrink slightly so they sit inside the chip
-        body = '<g transform="translate(8 8) scale(.86) translate(-8 -8)" stroke-width="1.45">%s</g>' % body
-    return _svg(_g(color, chip + body))
+    """Frameless glyph. Pictograms are drawn on a 4..12 core, so scale them up about the centre."""
+    if kind == "m":
+        return _svg(_g(color, mono(payload)))
+    body = GLYPH[payload]
+    if payload not in FULL:
+        sc = FIT.get(payload, 1.3)  # per-glyph size so every pictogram reads at the same visual weight
+        body = ('<g transform="translate(8 8) scale(%s) translate(-8 -8)" stroke-width="%.3f">%s</g>'
+                % (sc, 1.4 / sc, body))
+    return _svg(_g(color, body))
 
 
 def folder_icon(color, glyph=None, open_=False):
