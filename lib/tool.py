@@ -253,7 +253,8 @@ def cmd_zed_restore(a):
     root, members = root_members(text)
     if key not in members or "Orbitron" not in text[members[key][1]:members[key][2]]:
         say("%s was changed since install; leaving it alone" % label, 2)
-    prev = z.get("previous_raw")
+    # "previous_theme_raw" is the pre-icons state format: installs made before v1.1.0 still restore correctly
+    prev = z.get("previous_raw", z.get("previous_theme_raw"))
     if prev is None:
         d = "One" if key == "theme" else "Zed (Default)"
         light, dark = ("One Light", "One Dark") if key == "theme" else (d, d)

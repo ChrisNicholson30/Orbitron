@@ -1,6 +1,6 @@
 id = "orbitron-icons"
 name = "Orbitron Icons"
-version = "1.0.0"
+version = "1.1.0"
 schema_version = 1
 authors = ["Chris Nicholson"]
 description = "Original 16px file and folder icons for the Orbitron suite: stroke-font monograms and pictograms in each variant's palette."
